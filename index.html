@@ -3,22 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>دکمه عکس 👍</title>
+<title>Mani</title>
 
 <style>
 body{
   margin:0;
   height:100vh;
   display:flex;
+  flex-direction:column;
   justify-content:center;
   align-items:center;
   font-family:Arial;
-  background:#111;
+  transition:0.5s;
 }
 
+/* 🔝 عنوان بالا */
+h1{
+  position:absolute;
+  top:20px;
+  color:white;
+  font-size:40px;
+  letter-spacing:2px;
+}
+
+/* 📦 وسط صفحه */
 .box{
   text-align:center;
-  color:white;
 }
 
 button{
@@ -33,31 +43,28 @@ button{
 button:hover{
   background:#0ea5e9;
 }
-
-img{
-  width:220px;
-  margin-top:20px;
-  display:none;
-}
 </style>
 </head>
 
 <body>
 
+<h1>Mani 😎</h1>
+
 <div class="box">
-  <h2>روی دکمه بزن 😎</h2>
-
-  <button onclick="show()">نمایش 👍</button>
-
-  <br>
-
-  <img id="pic"
-    src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Emoji_u1f44d.svg">
+  <h2>دکمه رو بزن 🎨</h2>
+  <button onclick="changeBg()">تغییر رنگ</button>
 </div>
 
 <script>
-function show(){
-  document.getElementById("pic").style.display = "block";
+const colors = [
+  "#111", "#ff0000", "#00ff00",
+  "#0000ff", "#ff00ff", "#00ffff",
+  "#ffa500", "#8a2be2", "#222"
+];
+
+function changeBg(){
+  let random = Math.floor(Math.random() * colors.length);
+  document.body.style.background = colors[random];
 }
 </script>
 
