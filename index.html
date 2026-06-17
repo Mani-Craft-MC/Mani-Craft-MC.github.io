@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mani</title>
+<title>Mani 😎</title>
 
 <style>
 body{
@@ -14,35 +14,50 @@ body{
   justify-content:center;
   align-items:center;
   font-family:Arial;
+  overflow:hidden;
   transition:0.5s;
 }
 
-/* 🔝 عنوان بالا */
-h1{
-  position:absolute;
-  top:20px;
-  color:white;
-  font-size:40px;
-  letter-spacing:2px;
+/* 🌈 RGB */
+.rgb{
+  background:linear-gradient(-45deg,
+  #ff0000,#ff7300,#fffb00,#00ff2a,#00d4ff,#7a00ff,#ff00c8);
+  background-size:400% 400%;
+  animation:move 3s linear infinite;
 }
 
-/* 📦 وسط صفحه */
-.box{
-  text-align:center;
+@keyframes move{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+
+h1{
+  color:white;
+  font-size:45px;
+  margin-bottom:20px;
+  text-shadow:0 0 10px black;
 }
 
 button{
+  display:block;
+  margin:10px;
   padding:12px 25px;
   font-size:18px;
   border:none;
   border-radius:10px;
-  background:#38bdf8;
   cursor:pointer;
+  transition:0.3s;
 }
 
 button:hover{
-  background:#0ea5e9;
+  transform:scale(1.1);
 }
+
+#b1{background:white;}
+#b2{background:#00ffcc;}
+#b3{background:#ffcc00;}
+
 </style>
 </head>
 
@@ -50,21 +65,50 @@ button:hover{
 
 <h1>Mani 😎</h1>
 
-<div class="box">
-  <h2>دکمه رو بزن 🎨</h2>
-  <button onclick="changeBg()">تغییر رنگ</button>
-</div>
+<!-- 🎵 آهنگ -->
+<audio id="music" src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Rolemusic/Rolemusic_-_08_-_The_Way_You_Do.mp3"></audio>
+
+<button id="b1" onclick="changeBg()">تغییر رنگ 🎨</button>
+
+<button id="b2" onclick="toggleRGB()">RGB 🌈</button>
+
+<button id="b3" onclick="toggleMusic()">پخش موزیک 🎵</button>
 
 <script>
-const colors = [
-  "#111", "#ff0000", "#00ff00",
-  "#0000ff", "#ff00ff", "#00ffff",
-  "#ffa500", "#8a2be2", "#222"
-];
+let rgbOn = false;
+let playing = false;
 
+/* 🎨 رنگ تصادفی */
 function changeBg(){
-  let random = Math.floor(Math.random() * colors.length);
-  document.body.style.background = colors[random];
+  let color = "#" + Math.floor(Math.random()*16777215).toString(16);
+  document.body.classList.remove("rgb");
+  document.body.style.background = color;
+  rgbOn = false;
+}
+
+/* 🌈 RGB */
+function toggleRGB(){
+  rgbOn = !rgbOn;
+
+  if(rgbOn){
+    document.body.classList.add("rgb");
+  } else {
+    document.body.classList.remove("rgb");
+    document.body.style.background = "#111";
+  }
+}
+
+/* 🎵 موزیک */
+function toggleMusic(){
+  let music = document.getElementById("music");
+
+  if(!playing){
+    music.play();
+    playing = true;
+  } else {
+    music.pause();
+    playing = false;
+  }
 }
 </script>
 
