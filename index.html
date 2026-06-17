@@ -1,63 +1,114 @@
 <!DOCTYPE html>
 <html lang="fa">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مانی QR</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مانی خفن 😎</title>
 
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(-45deg, #0f172a, #1e293b, #0ea5e9, #22c55e);
-      background-size: 400% 400%;
-      animation: bg 8s ease infinite;
-    }
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial;
+  overflow:hidden;
+}
 
-    @keyframes bg {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+/* 🌈 بک‌گراند سریع‌تر و رنگی‌تر */
+.bg{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background:linear-gradient(-45deg,
+  #ff0000, #ff7300, #fffb00,
+  #00ff2a, #00d4ff, #7a00ff, #ff00c8);
+  background-size:400% 400%;
+  animation:move 4s linear infinite;
+}
 
-    .box {
-      text-align: center;
-      padding: 25px;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(8px);
-    }
+@keyframes move{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 
-    h2 {
-      color: white;
-      margin-bottom: 15px;
-    }
+/* 🔤 حرف M شفاف وسط */
+.m{
+  position:absolute;
+  font-size:200px;
+  font-weight:bold;
+  color:rgba(255,255,255,0.15);
+  z-index:1;
+  user-select:none;
+}
 
-    img {
-      border-radius: 15px;
-      box-shadow: 0 0 20px #00ffcc;
-      transition: 0.3s;
-    }
+/* 🧊 باکس وسط */
+.box{
+  position:relative;
+  z-index:2;
+  text-align:center;
+  padding:25px;
+  background:rgba(0,0,0,0.6);
+  border-radius:20px;
+  color:white;
+  backdrop-filter: blur(10px);
+}
 
-    img:hover {
-      transform: scale(1.1);
-    }
-  </style>
+button{
+  padding:12px 25px;
+  font-size:18px;
+  border:none;
+  border-radius:10px;
+  background:#ffffff;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+button:hover{
+  transform:scale(1.05);
+}
+
+img{
+  margin-top:15px;
+  display:none;
+  width:200px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="box">
-    <h2>اسکن کن 😎</h2>
+<div class="bg"></div>
 
-    <img width="220"
-      src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://mani-craft-mc.github.io/">
-  </div>
+<div class="m" id="mText">M</div>
+
+<div class="box">
+  <h2>روی دکمه بزن 😎</h2>
+  <button onclick="showImg()">نمایش 👍</button>
+
+  <br>
+
+  <img id="img"
+  src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Emoji_u1f44d.svg">
+</div>
+
+<script>
+function showImg(){
+  document.getElementById("img").style.display="block";
+}
+
+/* 🎨 تغییر رنگ حرف M همزمان با بک‌گراند */
+setInterval(()=>{
+  let colors = [
+    "#ffffff","#ff0000","#00ff00",
+    "#00ffff","#ff00ff","#ffff00"
+  ];
+  document.getElementById("mText").style.color =
+    colors[Math.floor(Math.random()*colors.length)];
+},300);
+</script>
 
 </body>
 </html>
