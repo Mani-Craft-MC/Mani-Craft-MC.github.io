@@ -36,28 +36,20 @@ h1{
   color:white;
   font-size:45px;
   margin-bottom:20px;
-  text-shadow:0 0 10px black;
 }
 
 button{
-  display:block;
-  margin:10px;
+  margin:8px;
   padding:12px 25px;
   font-size:18px;
   border:none;
   border-radius:10px;
   cursor:pointer;
-  transition:0.3s;
-}
-
-button:hover{
-  transform:scale(1.1);
 }
 
 #b1{background:white;}
 #b2{background:#00ffcc;}
 #b3{background:#ffcc00;}
-
 </style>
 </head>
 
@@ -65,25 +57,23 @@ button:hover{
 
 <h1>Mani 😎</h1>
 
-<!-- 🎵 آهنگ -->
-<audio id="music" src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Rolemusic/Rolemusic_-_08_-_The_Way_You_Do.mp3"></audio>
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
 <button id="b1" onclick="changeBg()">تغییر رنگ 🎨</button>
-
 <button id="b2" onclick="toggleRGB()">RGB 🌈</button>
-
-<button id="b3" onclick="toggleMusic()">پخش موزیک 🎵</button>
+<button id="b3" onclick="toggleMusic()">موزیک 🎵</button>
 
 <script>
 let rgbOn = false;
-let playing = false;
+let musicOn = false;
 
 /* 🎨 رنگ تصادفی */
 function changeBg(){
-  let color = "#" + Math.floor(Math.random()*16777215).toString(16);
   document.body.classList.remove("rgb");
-  document.body.style.background = color;
   rgbOn = false;
+
+  let color = "#" + Math.floor(Math.random()*16777215).toString(16);
+  document.body.style.background = color;
 }
 
 /* 🌈 RGB */
@@ -98,16 +88,16 @@ function toggleRGB(){
   }
 }
 
-/* 🎵 موزیک */
+/* 🎵 موزیک درست */
 function toggleMusic(){
   let music = document.getElementById("music");
 
-  if(!playing){
-    music.play();
-    playing = true;
+  if(!musicOn){
+    music.play().catch(err => console.log("error:", err));
+    musicOn = true;
   } else {
     music.pause();
-    playing = false;
+    musicOn = false;
   }
 }
 </script>
