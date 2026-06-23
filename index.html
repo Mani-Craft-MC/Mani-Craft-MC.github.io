@@ -1,105 +1,63 @@
-<!DOCTYPE html>
-<html lang="fa">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mani 😎</title>
+currentPlayer=currentPlayer==="X"?"O":"X";
 
-<style>
-body{
-  margin:0;
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  font-family:Arial;
-  overflow:hidden;
-  transition:0.5s;
+  document.getElementById("status").innerText =
+    currentPlayer==="X" ? "نوبت: 🔴 قرمز" : "نوبت: 🔵 آبی";
+
+  createBoard();
 }
 
-/* 🌈 RGB */
-.rgb{
-  background:linear-gradient(-45deg,
-  #ff0000,#ff7300,#fffb00,#00ff2a,#00d4ff,#7a00ff,#ff00c8);
-  background-size:400% 400%;
-  animation:move 3s linear infinite;
-}
+/* 🏆 win */
+function checkWin(){
+  let win=[
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
 
-@keyframes move{
-  0%{background-position:0% 50%;}
-  50%{background-position:100% 50%;}
-  100%{background-position:0% 50%;}
-}
+  for(let w of win){
+    let [a,b,c]=w;
 
-h1{
-  color:white;
-  font-size:45px;
-  margin-bottom:20px;
-}
-
-button{
-  margin:8px;
-  padding:12px 25px;
-  font-size:18px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-}
-
-#b1{background:white;}
-#b2{background:#00ffcc;}
-#b3{background:#ffcc00;}
-</style>
-</head>
-
-<body>
-
-<h1>Mani</h1>
-
-<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
-<button id="b1" onclick="changeBg()">تغییر رنگ 🎨</button>
-<button id="b2" onclick="toggleRGB()">RGB 🌈</button>
-<button id="b3" onclick="toggleMusic()">موزیک 🎵</button>
-
-<script>
-let rgbOn = false;
-let musicOn = false;
-
-/* 🎨 رنگ تصادفی */
-function changeBg(){
-  document.body.classList.remove("rgb");
-  rgbOn = false;
-
-  let color = "#" + Math.floor(Math.random()*16777215).toString(16);
-  document.body.style.background = color;
-}
-
-/* 🌈 RGB */
-function toggleRGB(){
-  rgbOn = !rgbOn;
-
-  if(rgbOn){
-    document.body.classList.add("rgb");
-  } else {
-    document.body.classList.remove("rgb");
-    document.body.style.background = "#111";
+    if(cells[a] && cells[a]===cells[b] && cells[a]===cells[c]){
+      gameActive=false;
+      document.getElementById("status").innerText="🏆 برنده شد";
+      startExplosion();
+      return true;
+    }
   }
-}
 
-/* 🎵 موزیک درست */
-function toggleMusic(){
-  let music = document.getElementById("music");
-
-  if(!musicOn){
-    music.play().catch(err => console.log("error:", err));
-    musicOn = true;
-  } else {
-    music.pause();
-    musicOn = false;
+  if(!cells.includes("")){
+    resetGame();
   }
+
+  return false;
 }
+
+/* 💥 انفجار + ریست */
+function startExplosion(){
+  let start=Date.now();
+
+  let interval=setInterval(()=>{
+    boom();
+
+    if(Date.now()-start>5000){
+      clearInterval(interval);
+      resetGame();
+    }
+  },200);
+}
+
+/* 🔄 reset */
+function resetGame(){
+  cells=Array(9).fill("");
+  currentPlayer="X";
+  gameActive=true;
+
+  document.body.style.background="#3b0000";
+  document.getElementById("status").innerText="نوبت: 🔴 قرمز";
+
+  createBoard();
+}
+
 </script>
 
 </body>
